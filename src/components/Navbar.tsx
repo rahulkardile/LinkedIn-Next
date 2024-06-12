@@ -17,23 +17,27 @@ const Navbar = () => {
             height={35}
             className="bg-white"
           />
-          <Search />
+          <div className="md:block hidden">
+            <Search />
+          </div>
         </div>
         <div className="flex items-center gap-5">
-          <div className="">
+          <div className="md:block hidden">
             <NavItem />
           </div>
-          <div className="">
+          <div className="flex items-center">
             <SignedIn>
               <UserButton />
             </SignedIn>
 
-          <SignedOut>
-            <Button className="">
-              <SignInButton />
-            </Button>
-          </SignedOut>
-
+            <SignedOut>
+              <Button
+                className="rounded-full duration-700 ease-in-out hover:shadow-lg "
+                variant={"secondary"}
+              >
+                <SignInButton />
+              </Button>
+            </SignedOut>
           </div>
         </div>
       </div>
