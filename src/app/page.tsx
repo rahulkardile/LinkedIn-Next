@@ -6,11 +6,13 @@ import { currentUser } from "@clerk/nextjs/server";
 export default async function Home() {
 
   const user = await currentUser();
-  console.log(user?.imageUrl);
+  console.log(user);
 
   const userObj = {
     img: user?.imageUrl,
-    name: user?.fullName
+    fullName: user?.fullName,
+    name: user?.firstName,
+    last: user?.lastName
   }
   
   return (

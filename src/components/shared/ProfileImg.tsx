@@ -7,4 +7,4 @@ const ProfileImg = ({ src }: { src: string }) => {
     )
 }
 
-export default ProfileImg
+export default ProfileImg;
