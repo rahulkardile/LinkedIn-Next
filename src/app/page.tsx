@@ -6,7 +6,6 @@ import { currentUser } from "@clerk/nextjs/server";
 export default async function Home() {
 
   const user = await currentUser();
-  console.log(user);
 
   const userObj = {
     img: user?.imageUrl,
@@ -14,7 +13,7 @@ export default async function Home() {
     name: user?.firstName,
     last: user?.lastName
   }
-  
+
   return (
     <div className="pt-24">
       <div className="max-w-6xl mx-auto flex justify-between gap-3">
