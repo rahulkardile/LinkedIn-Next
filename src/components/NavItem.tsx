@@ -16,7 +16,7 @@ const NavItems: NavItemType[] = [
     text: "Home",
   },
   {
-    src: "/networks",
+    src: "/network",
     icon: <User />,
     text: "My Network",
   },
@@ -28,7 +28,7 @@ const NavItems: NavItemType[] = [
   {
     src: "/message",
     icon: <MessageCircleMore />,
-    text: "Home",
+    text: "Message",
   },
   {
     src: "/notification",
