@@ -28,8 +28,8 @@ const Sidebar = ({ user }: { user: user }) => {
         </div>
         <div className="border-b border-gray-300 duration-300">
           <div className="mt-10 text-center">
-            <div className="border-b-2 duration-500 border-gray-500 hover:border-blue-400 w-[40%] m-auto ">
-              <h1 className='font-semibold cursor-pointer'>{user ? user.fullName : 'user_name'}</h1>
+            <div className="w-[40%] m-auto ">
+              <h1 className='hover:font-bold font-semibold cursor-pointer'>{user ? user.fullName : 'user_name'}</h1>
             </ div>
           </div>
           <div className="w-10/12 mt-1 mb-2 text-xs text-center pt-1 pb-3 break-words m-auto ">
@@ -47,7 +47,7 @@ const Sidebar = ({ user }: { user: user }) => {
           <p className='text-blue-500'>2</p>
         </div>
       </div>
-      
+
       <div className="flex flex-col p-3 border-t">
         <div className=" text-xs cursor-pointer font-semibold flex flex-col gap-2 p-2 hover:bg-gray-200 rounded-md mb-1">
           <p>Achive Your Career goals</p>
