@@ -2,19 +2,12 @@ import Image from 'next/image';
 import React from 'react';
 import ProfileImg from './shared/ProfileImg';
 import { GalleryVerticalEnd, Gem, Target } from 'lucide-react';
-
-
-interface user {
-  img: string | undefined;
-  name: string | undefined | null,
-  last: string | undefined | null,
-  fullName: string | undefined | null,
-}
+import { user } from '@/types/User';
 
 const Sidebar = ({ user }: { user: user }) => {
 
   return (
-    <div className="hidden md:block select-none w-[28%] h-fit border border-b-2 bg-white p-2 rounded-lg">
+    <div className="hidden md:block select-none w-[22%] h-fit border border-b-2 bg-white p-2 rounded-lg">
       <div className="flex relative flex-col items-center">
         <div className="w-full h-20 overflow-hidden">
           {
@@ -24,7 +17,7 @@ const Sidebar = ({ user }: { user: user }) => {
           }
         </div>
         <div className="my-1 absolute top-10">
-          <ProfileImg src={user.img !== undefined ? user.img : "/mern1.png"} />
+          <ProfileImg src={user.img !== undefined ? user.img : "/user.jpg"} />
         </div>
         <div className="border-b border-gray-300 duration-300">
           <div className="mt-10 text-center">
