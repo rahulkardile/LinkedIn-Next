@@ -44,15 +44,15 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                 </DialogHeader>
                 <form action="">
                     <div className="flex flex-col justify-center items-center m-auto gap-4 py-4 w-full">
-                        <textarea placeholder="What do you want to talk about?" rows={8} cols={8} className="w-[90%] outline-none " />
+                        <textarea placeholder="What do you want to talk about?" rows={5} cols={5} className="w-[90%] outline-none " />
 
-                        <div className="w-[500px] p-4 bg-zinc-200 h-[300px] overflow-hidden rounded-xl">
+                        <div hidden={selectedFile.length === 0 ? true : false} className="w-[500px] p-4 bg-zinc-200 h-[300px] overflow-hidden rounded-xl">
                             {
-                                selectedFile.length &&  (
+                                selectedFile && (
                                     <Image src={selectedFile} alt="preview image" width={500} height={500}
                                         className="w-full h-full rounded-xl object-contain"
                                     />
-                                ): ""
+                                )
                             }
                         </div>
                         <input type="file" ref={inputRef} onChange={fileHandler} accept="image/*" name="image" className="hidden" />
@@ -64,18 +64,18 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                             <span>Add media</span>
                         </div>
 
-                        <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-pointer duration-500 hover:scale-105 ">
+                        <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-wait duration-500 hover:scale-105 ">
                             <CalendarDays />
                             <span>Add Event</span>
                         </div>
 
-                        <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-pointer duration-500 hover:scale-105 ">
+                        <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-wait duration-500 hover:scale-105 ">
                             <PartyPopper />
                             <span>Celebrate</span>
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Submit changes</Button>
+                        <Button type="submit">Post Now</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
