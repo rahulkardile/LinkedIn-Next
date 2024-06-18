@@ -14,6 +14,7 @@ import { ChangeEvent, useRef, useState } from "react"
 import { readFileAsUrl } from "@/lib/utils"
 import Image from "next/image"
 import { createPostAction } from "@/lib/serverAction"
+import toast from "react-hot-toast"
 
 export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, setOpen: any, src: string, fullName: string }) {
 
@@ -32,13 +33,16 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
     const PostActionHandler = async (formData: FormData) => {
         const inputText = formData.get('inputText') as string;
         try {
-          const data = await createPostAction(inputText, selectedFile);
-        //   const {  } = await data.json();
+            const data = await createPostAction(inputText, selectedFile);
+            //   const {  } = await data.json();
+            toast.success("Post successfull!");
+            setInputText("");
+            setSelectedFile("");
         } catch (error) {
             console.log("Error Occured!");
+            toast.error("Could not save!")
         }
-        setInputText("");
-        setSelectedFile("");
+
     }
 
     return (

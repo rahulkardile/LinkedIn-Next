@@ -5,6 +5,7 @@ import Post from "../../models/post.model";
 import { IUser } from "../../models/user.model";
 import { v2 as cloudinary } from "cloudinary";
 import connectDB from "./db";
+import { revalidatePath } from "next/cache";
 
 // Configuration
 cloudinary.config({
@@ -32,10 +33,10 @@ export async function createPostAction(
   };
 
   try {
+    
     let upload;
     if (image) {
       // 1. create post with image
-
       upload = await cloudinary.uploader.upload(image);
 
       await Post.create({
@@ -49,8 +50,10 @@ export async function createPostAction(
         user: UserDatabase,
       });
     }
+
+    revalidatePath("/");
+
   } catch (error: any) {
-   console.log(error);
-   
+    console.log(error);
   }
 }
