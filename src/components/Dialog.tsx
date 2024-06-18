@@ -37,6 +37,8 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
         } catch (error) {
             console.log("Error Occured!");
         }
+        setInputText("");
+        setSelectedFile("");
     }
 
     return (

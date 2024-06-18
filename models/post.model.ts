@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema<IPostDocument>(
     },
     imageUrl: {
       type: String,
+      default: "",
       required: true,
     },
     user: {
