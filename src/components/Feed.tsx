@@ -17,7 +17,7 @@ const Feed = async () => {
   return (
     <div className="flex-1 p-3 rounded">
       <PostInput user={userObj} />
-      <p className='border-b border-black m-auto my-5 w-11/12' />
+      <p className='border-b border-zinc-300 m-auto my-5 w-11/12' />
       <Posts />
       <Posts />
       <Posts />
