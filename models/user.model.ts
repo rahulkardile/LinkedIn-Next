@@ -33,8 +33,9 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
     },
     bio: {
       type: String,
-      default: "",
-      required: false
+      default:
+        "Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native",
+      required: false,
     },
   },
   {
@@ -42,9 +43,6 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
   }
 );
 
-const User: Model<IUserDocument> = mongoose.models?.User || mongoose.model<IUserDocument>(
-  "User",
-  UserSchema
-);
+const User: Model<IUserDocument> = mongoose.models?.User || mongoose.model<IUserDocument>("User", UserSchema);
 
 export default User;

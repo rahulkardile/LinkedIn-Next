@@ -5,7 +5,7 @@ import { IComment } from "./comment.model";
 export interface IPost {
   description: string;
   user: IUser;
-  imageUrl?: string;
+  imageUrl: string;
   likes?: string[];
   comments?: IComment[];
 }
@@ -18,6 +18,10 @@ export interface IPostDocument extends IPost, Document {
 const UserSchema = new mongoose.Schema<IPostDocument>(
   {
     description: {
+      type: String,
+      required: true,
+    },
+    imageUrl: {
       type: String,
       required: true,
     },
@@ -41,6 +45,7 @@ const UserSchema = new mongoose.Schema<IPostDocument>(
       bio: {
         type: String,
         default: "",
+        required: false,
       },
     },
     likes: {
@@ -58,9 +63,7 @@ const UserSchema = new mongoose.Schema<IPostDocument>(
   }
 );
 
-const Post: Model<IPostDocument> = mongoose.model<IPostDocument>(
-  "User",
-  UserSchema
-);
+const Post: Model<IPostDocument> =
+  mongoose.models?.Post || mongoose.model<IPostDocument>("Post", UserSchema);
 
 export default Post;
