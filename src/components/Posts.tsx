@@ -13,7 +13,7 @@ const Posts = () => {
     <div className='bg-white rounded-lg p-5 mb-4'>
       <div className="">
         <div className="flex w-full justify-end items-center mb-2 flex-row gap-2">
-          <ProfileImg src={'user.jpg'} />
+          <ProfileImg src={'/user.jpg'} />
           <div className="w-11/12">
             <h3 className='font-semibold'>Omkar Mhaske</h3>
             <p className='text-xs w-5/6 line-clamp-1'>Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native</p>
