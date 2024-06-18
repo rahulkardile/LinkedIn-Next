@@ -14,7 +14,7 @@ const News = () => {
       <SemiNews />
 
       <div className="">
-        <p className='font-semibold text-gray-500 my-3'><span>Today's Game</span>
+        <p className='font-semibold text-gray-500 my-3'><span>{'Today`s Game'}</span>
           <span className='bg-red-200 p-1 text-xs rounded-lg ml-3 text-zinc-700'>New</span></p>
         <Games />
       </div>

@@ -1,10 +1,11 @@
+import Image from 'next/image'
 import React from 'react'
 
 const Games = () => {
     return (
         <div className="flex flex-col gap-2">
             <div className="flex flex-row items-center gap-1">
-                <img src="climb.svg" className='w-7 h-7' alt="logo" />
+                <Image src="climb.svg" className='w-7 h-7' alt="logo" width={300} height={300} />
                 <div className="flex flex-col p-1">
                     <div className="flex gap-1 font-semibold">
                         <span className='text-xs '>Cross Climb</span>
@@ -15,7 +16,7 @@ const Games = () => {
             </div>
 
             <div className="flex flex-row items-center gap-1">
-                <img src="queen.svg" className='w-7 h-7' alt="logo" />
+                <Image src="queen.svg" className='w-7 h-7' alt="logo" width={300} height={300} />
                 <div className="flex flex-col p-1">
                     <div className="flex gap-1 font-semibold">
                         <span className='text-xs '>Queens Game</span>
@@ -26,7 +27,7 @@ const Games = () => {
             </div>
 
             <div className="flex flex-row items-center gap-1">
-                <img src="pinpoint.svg" className='w-7 h-7' alt="logo" />
+                <Image src="pinpoint.svg" className='w-7 h-7' alt="logo" width={300} height={300} />
                 <div className="flex flex-col p-1">
                     <div className="flex gap-1 font-semibold">
                         <span className='text-xs '>Pin Point</span>
