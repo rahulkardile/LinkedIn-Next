@@ -39,7 +39,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
                     </DialogTitle>
                     <DialogDescription className="p-2">
-                        {"  Make changes from bottem. Click Submit when you're done."}
+                        {"Start creating something you're excited about. Click Post now when you're done."}
                     </DialogDescription>
                 </DialogHeader>
                 <form action="">

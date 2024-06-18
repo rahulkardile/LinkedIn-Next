@@ -29,7 +29,7 @@ const Posts = () => {
 
         <Image src="/coding.jpg" className='rounded-md mt-2' alt='main Image' width={1000} height={1000} />
 
-        <div className="p-1 flex flex-row justify-between border-t my-3">
+        <div className="p-1 flex flex-row justify-between border-t px-6 mt-4">
           <div className="flex gap-2 items-center p-2">
             <ThumbsUp />
             <p>Like</p>

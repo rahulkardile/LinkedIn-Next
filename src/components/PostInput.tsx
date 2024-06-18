@@ -17,16 +17,16 @@ const PostInput = ({ user }: { user: user }) => {
         <Input type='text' onClick={() => setOpen(true)} placeholder='Start a post' className='h-12 outline-none w-full rounded-full' />
         <InputDialog open={open} setOpen={setOpen} fullName={user.fullName !== null && user.fullName !== undefined ? user.fullName : 'User '} src={user.img ? user.img : ""} />
       </div>
-      <div className="flex flex-row px-20 pt-4 pb-2 justify-between">
-        <div onClick={() => setOpen(true)} className="flex cursor-pointer gap-2">
+      <div className="flex flex-row px-14 pt-4 justify-between">
+        <div onClick={() => setOpen(true)} className="flex duration-300 hover:bg-zinc-300 p-2 rounded-lg  cursor-pointer gap-2">
           <Images className='text-blue-400' />
           <span>Media</span>
         </div>
-        <div onClick={() => setOpen(true)} className="flex cursor-pointer gap-2">
+        <div onClick={() => setOpen(true)} className="flex duration-300 hover:bg-zinc-300 p-2 rounded-lg  cursor-pointer gap-2">
           <NotepadText className='text-orange-300' />
           <span>Event</span>
         </div>
-        <div onClick={() => setOpen(true)} className="flex cursor-pointer gap-2">
+        <div onClick={() => setOpen(true)} className="flex duration-300 hover:bg-zinc-300 p-2 rounded-lg cursor-pointer gap-2">
           <Newspaper className='text-orange-600' />
           <span>Write article</span>
         </div>
