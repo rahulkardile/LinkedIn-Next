@@ -71,7 +71,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
                     </DialogTitle>
                     <DialogDescription className="p-2">
-                        {"Start creating something you're excited about. Click on Post now when you're done."}
+                        {"Start creating something you're excited about. Click on Create Post when you're done."}
                     </DialogDescription>
                 </DialogHeader>
                 <form action={PostActionHandler}>
@@ -109,7 +109,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button disabled={loading} type="submit">Post Now</Button>
+                        <Button disabled={loading} type="submit">Create Post</Button>
                         <DialogClose disabled={loading} onClick={() => setOpen(false)} asChild>
                             <Button type="button" variant="secondary">
                                 Close

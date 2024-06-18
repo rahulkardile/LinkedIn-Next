@@ -6,28 +6,32 @@ import { Forward, MessageSquareMore, Save, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
 import { IPostDocument } from '../../models/post.model'
 
-const Posts = ({IPostDocument}: {IPostDocument: IPostDocument}) => {
+const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
 
   const [hide, setHide] = useState<boolean>(true)
+
+  console.log(" log post : " + IPostDocument);
+
 
   return (
     <div className='bg-white rounded-lg p-5 mb-4'>
       <div className="">
         <div className="flex w-full justify-end items-center mb-2 flex-row gap-2">
-          <ProfileImg src={'/user.jpg'} />
+          <ProfileImg src={IPostDocument.user.profileImage ? IPostDocument.user.profileImage : '/user.jpg'} />
           <div className="w-11/12">
-            <h3 className='font-semibold'>Omkar Mhaske</h3>
+            <h3 className='font-semibold'>{IPostDocument.user.firstName + " " + IPostDocument.user.lastName}</h3>
             <p className='text-xs w-5/6 line-clamp-1'>Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native</p>
           </div>
         </div>
         <div className='flex flex-col items-end'>
           <p className={`left-1 text-sm ${hide ? "line-clamp-3" : ""}`}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum accusantium aliquid, maxime praesentium perferendis autem sunt fuga perspiciatis doloribus suscipit. Quis, hic nam deleniti qui illo doloribus minima modi eum. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis eius minus facilis ipsam laudantium unde dolores ea excepturi est harum numquam, architecto at cupiditate ratione, consequuntur libero assumenda consectetur reiciendis.
+            {hide === false && IPostDocument.description ? IPostDocument.
+            description : IPostDocument.description.substring(0, 200) + " . . .  "}
+           <span onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? " see more " : " see less "}</span>
           </p>
-          <span onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? "See more" : "See less"}</span>
         </div>
 
-        <Image src="/coding.jpg" className='rounded-md mt-2' alt='main Image' width={1000} height={1000} />
+        <Image src={IPostDocument.imageUrl ? IPostDocument.imageUrl : ""} className='rounded-md mt-2 h-[300px] m-auto w-auto' alt='main Image' width={900} height={900} />
 
         <div className="p-1 flex flex-row justify-between border-t px-6 mt-4">
           <div className="flex gap-2 items-center p-2">

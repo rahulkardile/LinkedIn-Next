@@ -24,7 +24,7 @@ const Feed = async () => {
       <p className='border-b border-zinc-300 m-auto my-5 w-11/12' />
       {posts.map((item, index) =>{ 
         
-        console.log(item);
+        // console.log(item);
         
 
         return(
