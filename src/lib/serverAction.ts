@@ -5,13 +5,12 @@ import Post from "../../models/post.model";
 import { IUser } from "../../models/user.model";
 import { v2 as cloudinary } from "cloudinary";
 import connectDB from "./db";
-import { revalidatePath } from "next/cache";
 
 // Configuration
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API,
-  api_secret: process.env.CLOUD_SECRET, // Click 'View Credentials' below to copy your API secret
+  api_secret: process.env.CLOUD_SECRET,
 });
 
 export async function createPostAction(
@@ -33,27 +32,49 @@ export async function createPostAction(
   };
 
   try {
-    
     let upload;
+
     if (image) {
       // 1. create post with image
       upload = await cloudinary.uploader.upload(image);
 
-      await Post.create({
+      const data = await Post.create({
         description: inputText,
         user: UserDatabase,
         imageUrl: upload?.secure_url,
       });
+
+      return {
+        success: true,
+        data,
+        message: "Post successfull!",
+      };
     } else {
-      await Post.create({
+      const data = await Post.create({
         description: inputText,
         user: UserDatabase,
       });
+
+      return {
+        success: true,
+        data,
+        message: "Post successfull!",
+      };
     }
-
-    revalidatePath("/");
-
   } catch (error: any) {
+    console.log(error);
+  }
+}
+
+export async function getAllPost() {
+  try {
+
+    await connectDB();
+
+    const posts = await Post.find().sort({ createdAt: -1 });
+    if (!posts) return [];
+    return JSON.parse(JSON.stringify(posts));
+  } catch (error) {
     console.log(error);
   }
 }

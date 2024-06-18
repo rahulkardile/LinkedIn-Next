@@ -2,6 +2,8 @@ import React from 'react'
 import PostInput from './PostInput'
 import Posts from './Posts'
 import { currentUser } from '@clerk/nextjs/server';
+import { getAllPost } from '@/lib/serverAction';
+import { IPostDocument } from '../../models/post.model';
 
 const Feed = async () => {
 
@@ -14,15 +16,20 @@ const Feed = async () => {
     last: user?.lastName
   }
 
+  const posts: IPostDocument[] = await getAllPost();
+
   return (
     <div className="flex-1 p-3 rounded">
       <PostInput user={userObj} />
       <p className='border-b border-zinc-300 m-auto my-5 w-11/12' />
-      <Posts />
-      <Posts />
-      <Posts />
-      <Posts />
-      <Posts />
+      {posts.map((item, index) =>{ 
+        
+        console.log(item);
+        
+
+        return(
+        <Posts IPostDocument={item} key={index} />
+      )})}
     </div>
   )
 }

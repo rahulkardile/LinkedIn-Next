@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
@@ -19,6 +20,7 @@ import toast from "react-hot-toast"
 export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, setOpen: any, src: string, fullName: string }) {
 
     const inputRef = useRef<HTMLInputElement>(null);
+    const [loading, setLoading] = useState<boolean>(false);
     const [selectedFile, setSelectedFile] = useState<string>("");
     const [InputText, setInputText] = useState<string>("");
 
@@ -31,14 +33,26 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
     }
 
     const PostActionHandler = async (formData: FormData) => {
+        setLoading(true);
+        toast.loading("Uploading!")
         const inputText = formData.get('inputText') as string;
         try {
             const data = await createPostAction(inputText, selectedFile);
-            //   const {  } = await data.json();
-            toast.success("Post successfull!");
-            setInputText("");
-            setSelectedFile("");
+            if (data !== undefined) {
+                if (data.success) {
+                    toast.success(data.message);
+                    setInputText("");
+                    setSelectedFile("");
+                    setOpen(false);
+                    setLoading(false);
+                } else {
+                    toast.error("Error Occur!");
+                    setLoading(false);
+                }
+            }
+
         } catch (error) {
+            setLoading(false);
             console.log("Error Occured!");
             toast.error("Could not save!")
         }
@@ -75,6 +89,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
 
                         <input type="file" ref={inputRef} onChange={fileHandler} accept="image/*" name="image" className="hidden" />
+
                     </div>
 
                     <div className="flex flex-row gap-9">
@@ -94,7 +109,12 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Post Now</Button>
+                        <Button disabled={loading} type="submit">Post Now</Button>
+                        <DialogClose disabled={loading} onClick={() => setOpen(false)} asChild>
+                            <Button type="button" variant="secondary">
+                                Close
+                            </Button>
+                        </DialogClose>
                     </DialogFooter>
                 </form>
             </DialogContent>

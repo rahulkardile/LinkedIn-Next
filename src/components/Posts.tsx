@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 import ProfileImg from './shared/ProfileImg'
 import { Forward, MessageSquareMore, Save, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
+import { IPostDocument } from '../../models/post.model'
 
-const Posts = () => {
+const Posts = ({IPostDocument}: {IPostDocument: IPostDocument}) => {
 
   const [hide, setHide] = useState<boolean>(true)
 
@@ -19,11 +20,11 @@ const Posts = () => {
             <p className='text-xs w-5/6 line-clamp-1'>Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native</p>
           </div>
         </div>
-        <div className='flex items-end'>
+        <div className='flex flex-col items-end'>
           <p className={`left-1 text-sm ${hide ? "line-clamp-3" : ""}`}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum accusantium aliquid, maxime praesentium perferendis autem sunt fuga perspiciatis doloribus suscipit. Quis, hic nam deleniti qui illo doloribus minima modi eum. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis eius minus facilis ipsam laudantium unde dolores ea excepturi est harum numquam, architecto at cupiditate ratione, consequuntur libero assumenda consectetur reiciendis.
           </p>
-          <span onClick={() => setHide(!hide)} className='text-blue-500 cursor-pointer font-semibold text-xs w-20'>{hide ? "See more" : "See less"}</span>
+          <span onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? "See more" : "See less"}</span>
         </div>
 
         <Image src="/coding.jpg" className='rounded-md mt-2' alt='main Image' width={1000} height={1000} />
