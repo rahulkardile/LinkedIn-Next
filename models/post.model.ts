@@ -1,12 +1,13 @@
 import mongoose, { Document, Model } from "mongoose";
 import { IUser } from "./user.model";
+import { IComment } from "./comment.model";
 
 export interface IPost {
   description: string;
   user: IUser;
   imageUrl?: string;
   likes?: string[];
-  comments?: any;
+  comments?: IComment[];
 }
 
 export interface IPostDocument extends IPost, Document {
@@ -40,16 +41,17 @@ const UserSchema = new mongoose.Schema<IPostDocument>(
       bio: {
         type: String,
         default: "",
-        required: true,
       },
     },
     likes: {
       type: [String],
     },
-    comments: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment"
-    },
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   {
     timestamps: true,

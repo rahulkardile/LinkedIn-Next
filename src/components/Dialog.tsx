@@ -6,7 +6,6 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import ProfileImg from "./shared/ProfileImg"
@@ -14,11 +13,13 @@ import { CalendarDays, GalleryHorizontal, ImagePlus, PartyPopper } from "lucide-
 import { ChangeEvent, useRef, useState } from "react"
 import { readFileAsUrl } from "@/lib/utils"
 import Image from "next/image"
+import { createPostAction } from "@/lib/serverAction"
 
 export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, setOpen: any, src: string, fullName: string }) {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<string>("");
+    const [InputText, setInputText] = useState<string>("");
 
     const fileHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -27,6 +28,17 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
             setSelectedFile(dataUrl);
         }
     }
+
+    const PostActionHandler = async (formData: FormData) => {
+        const inputText = formData.get('inputText') as string;
+        try {
+          const data = await createPostAction(inputText, selectedFile);
+        //   const {  } = await data.json();
+        } catch (error) {
+            console.log("Error Occured!");
+        }
+    }
+
     return (
         <Dialog open={open}>
             <DialogContent onInteractOutside={() => setOpen(false)} className="sm:max-w-[825px] ">
@@ -39,12 +51,12 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
                     </DialogTitle>
                     <DialogDescription className="p-2">
-                        {"Start creating something you're excited about. Click Post now when you're done."}
+                        {"Start creating something you're excited about. Click on Post now when you're done."}
                     </DialogDescription>
                 </DialogHeader>
-                <form action="">
+                <form action={PostActionHandler}>
                     <div className="flex flex-col justify-center items-center m-auto gap-4 py-4 w-full">
-                        <textarea placeholder="What do you want to talk about?" rows={5} cols={5} className="w-[90%] outline-none " />
+                        <textarea name="inputText" value={InputText} onChange={(e) => setInputText(e.target.value)} placeholder="What do you want to talk about?" rows={5} cols={5} className="w-[96%] outline-none " />
 
                         <div hidden={selectedFile.length === 0 ? true : false} className="w-[500px] p-4 bg-zinc-200 h-[300px] overflow-hidden rounded-xl">
                             {
@@ -55,6 +67,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                                 )
                             }
                         </div>
+
                         <input type="file" ref={inputRef} onChange={fileHandler} accept="image/*" name="image" className="hidden" />
                     </div>
 
