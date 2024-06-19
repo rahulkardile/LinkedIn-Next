@@ -44,11 +44,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                     setSelectedFile("");
                     setOpen(false);
                     setLoading(false);
-
-                    setTimeout(() => {
-                        router.refresh();
-                    }, 500);
-
+                    router.refresh();
                 } else {
                     toast.error("Error Occur!");
                     setLoading(false);
@@ -116,7 +112,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                             <span>Celebrate</span>
                         </div>
                     </div>
-                    <DialogFooter>
+                    <DialogFooter className="select-none">
                         <Button onClick={() => PostActionHandler()} disabled={loading} type="submit">Create Post</Button>
                         <DialogClose disabled={loading} onClick={() => setOpen(false)} asChild>
                             <Button type="button" variant="secondary">

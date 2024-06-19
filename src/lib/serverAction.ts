@@ -5,6 +5,7 @@ import Post from "../../models/post.model";
 import { IUser } from "../../models/user.model";
 import { v2 as cloudinary } from "cloudinary";
 import connectDB from "./db";
+import { revalidatePath } from "next/cache";
 
 // Configuration
 cloudinary.config({
@@ -86,14 +87,25 @@ export async function DeletePost(id: string) {
       success: boolean
     }
 
-    const deletePost = await Post.findByIdAndDelete(id);
+    const user = await currentUser();
+    if (!user) throw new Error("User not authenticated.")
+
+    const deletePost = await Post.findById(id);
+    if (!deletePost) throw new Error("Could Not find post")
+
+    if (deletePost.user.userId !== user.id) {
+      throw new Error('You are not an owner of this Post.');
+    }
+
+    await Post.deleteOne({ _id: id });
+    revalidatePath("/");
+
     if (deletePost) {
 
       const data: res = {
         message: "Post has been deleted!",
         success: true
       }
-
       return JSON.parse(JSON.stringify(data))
 
     } else {

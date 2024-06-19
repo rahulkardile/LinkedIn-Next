@@ -6,6 +6,7 @@ import { EllipsisVertical, Forward, MessageSquareMore, Save, ThumbsUp } from 'lu
 import Image from 'next/image'
 import { IPostDocument } from '../../models/post.model'
 import { useUser } from '@clerk/nextjs'
+import ReactTimeago from "react-timeago";
 import { MenuOption } from './MenuOption'
 
 const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
@@ -29,6 +30,10 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
 
             </div>
             <p className='text-xs w-5/6 line-clamp-1'>Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native</p>
+            <p className='text-xs text-gray-500'>
+              <ReactTimeago
+                date={new Date(IPostDocument.createdAt)} />
+            </p>
           </div>
           <EllipsisVertical className='cursor-pointer' onClick={() => setMenuOption(!option)} />
         </div>

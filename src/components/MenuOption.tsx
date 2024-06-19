@@ -45,15 +45,16 @@ export function MenuOption({ hide, setHide, id, user }: { hide: boolean, setHide
                 <div className="flex items-center flex-col gap-3">
                     {
                         user ? <>
+
                             <div className="flex gap-2 p-3 cursor-pointer rounded-lg hover:bg-slate-200 w-full px-4 items-start">
                                 <Pencil />
                                 <span>Edit</span>
                             </div>
 
-                            <div onClick={() => handleTrash(id)} className="flex gap-2 p-3 cursor-pointer rounded-lg hover:bg-slate-200 w-full px-4 items-start">
+                            <button onClick={() => handleTrash(id)} className="flex gap-2 p-3 cursor-pointer rounded-lg hover:bg-slate-200 w-full px-4 items-start">
                                 <Trash />
                                 <span>Delete</span>
-                            </div>
+                            </button>
                         </>
                             : ""
                     }
