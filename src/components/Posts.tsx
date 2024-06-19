@@ -24,31 +24,34 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
           </div>
         </div>
         <div className='flex flex-col items-end'>
-          <p className={`left-1 text-sm ${hide ? "line-clamp-3" : ""}`}>
+          <p className={`left-1 text-sm ${hide ? "line-clamp-3 px-2 py-1" : ""}`}>
             {hide === false && IPostDocument.description ? IPostDocument.
-            description : IPostDocument.description.substring(0, 200) + " . . .  "}
-           <span onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? " show more " : " show less "}</span>
+              description : IPostDocument.description.substring(0, 230) + " . . .  "}
+            <span hidden={IPostDocument.description.length <= 230 ? true : false} onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? " show more " : " show less "}</span>
           </p>
         </div>
 
-        <Image src={IPostDocument.imageUrl ? IPostDocument.imageUrl : ""} className='rounded-md mt-2 h-[300px] m-auto w-auto' alt='main Image' width={900} height={900} />
+        {
+          IPostDocument.imageUrl !== undefined && IPostDocument.imageUrl.length > 3 ? <Image src={IPostDocument.imageUrl ? IPostDocument.imageUrl : ""} className='rounded-md mt-2 h-[300px] m-auto w-auto' alt='main Image' width={900} height={900} /> : ""
+        }
+
 
         <div className="p-1 flex flex-row justify-between border-t px-6 mt-4">
           <div className="flex gap-2 items-center p-2">
-            <ThumbsUp />
+            <ThumbsUp className='[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]' />
             <p>Like</p>
           </div>
           <div className="flex gap-2 items-center p-2">
             <MessageSquareMore />
             <p>Comment</p>
           </div>
-          <div className="flex gap-1 p-2">
+          <div className="flex gap-1 items-center p-2">
             <Forward />
-            <p>Like</p>
+            <p>Share</p>
           </div>
-          <div className="flex gap-1 p-2">
+          <div className="flex gap-1 items-center p-2">
             <Save />
-            <p>Like</p>
+            <p>Save</p>
           </div>
         </div>
       </div>

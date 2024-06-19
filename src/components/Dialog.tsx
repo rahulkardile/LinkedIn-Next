@@ -92,18 +92,18 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
 
                     </div>
 
-                    <div className="flex flex-row gap-9">
+                    <div className="flex flex-row gap-9 select-none">
                         <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-pointer duration-500 hover:scale-105 ">
                             <ImagePlus />
                             <span>Add media</span>
                         </div>
 
-                        <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-wait duration-500 hover:scale-105 ">
+                        <div className="p-2 flex flex-col items-center cursor-wait duration-500 hover:scale-105 ">
                             <CalendarDays />
                             <span>Add Event</span>
                         </div>
 
-                        <div onClick={() => inputRef.current?.click()} className="p-2 flex flex-col items-center cursor-wait duration-500 hover:scale-105 ">
+                        <div className="p-2 flex flex-col items-center cursor-wait duration-500 hover:scale-105 ">
                             <PartyPopper />
                             <span>Celebrate</span>
                         </div>
