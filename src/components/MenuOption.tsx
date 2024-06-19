@@ -13,14 +13,20 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import toast from "react-hot-toast"
+import { DeletePost } from "@/lib/serverAction"
 
 export function MenuOption({ hide, setHide, id, user }: { hide: boolean, setHide: any, id?: any, user: boolean }) {
-    
-const handleTrash = (id: string) => {
-    toast.error("Post Deleted!")
-    console.log(id);
-    
-}
+
+    const handleTrash = async (id: string) => {
+
+        const { success, message } = await DeletePost(id);
+
+        if (success) {
+            toast.success(message);
+        } else {
+            toast.success(message);
+        }
+    }
 
     return (
         <Dialog open={hide}>
@@ -33,7 +39,7 @@ const handleTrash = (id: string) => {
                                 <span>Edit</span>
                             </div>
 
-                            <div onClick={()=> handleTrash(id)} className="flex gap-2 p-3 cursor-pointer rounded-lg hover:bg-slate-200 w-full px-4 items-start">
+                            <div onClick={() => handleTrash(id)} className="flex gap-2 p-3 cursor-pointer rounded-lg hover:bg-slate-200 w-full px-4 items-start">
                                 <Trash />
                                 <span>Delete</span>
                             </div>

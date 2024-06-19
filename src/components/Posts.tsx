@@ -24,9 +24,9 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
             <div className="flex gap-2 p-1">
               <h3 className='font-semibold'>{IPostDocument.user.firstName + " " + IPostDocument.user.lastName}</h3>
               {
-               user.user?.id === IPostDocument.user.userId ? <mark className='px-3 bg-yellow-200 text-xs pt-1 font-semibold rounded-md'>{loginUser ? "You" : ""}</mark> : ""
+                user.user?.id === IPostDocument.user.userId ? <mark className='px-3 bg-yellow-200 text-xs pt-1 font-semibold rounded-md'>{loginUser ? "You" : ""}</mark> : ""
               }
-            
+
             </div>
             <p className='text-xs w-5/6 line-clamp-1'>Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native</p>
           </div>

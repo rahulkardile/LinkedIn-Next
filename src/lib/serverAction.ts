@@ -77,3 +77,23 @@ export async function getAllPost() {
     console.log(error);
   }
 }
+
+export async function DeletePost(id: string) {
+  try {
+    const deletePost = await Post.findByIdAndDelete(id);
+    if (deletePost) {
+      return {
+        message: "Post has been deleted!",
+        success: false
+      }
+    } else {
+      return {
+        message: "Error While Deleting",
+        success: false
+      }
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
