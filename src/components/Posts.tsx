@@ -2,16 +2,18 @@
 
 import React, { useState } from 'react'
 import ProfileImg from './shared/ProfileImg'
-import { Forward, MessageSquareMore, Save, ThumbsUp } from 'lucide-react'
+import { EllipsisVertical, Forward, MessageSquareMore, Save, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
 import { IPostDocument } from '../../models/post.model'
+import { useUser } from '@clerk/nextjs'
+import { MenuOption } from './MenuOption'
 
 const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
-
+  const user = useUser();
   const [hide, setHide] = useState<boolean>(true)
+  const [option, setMenuOption] = useState<boolean>(false);
 
-  console.log(" log post : " + IPostDocument);
-
+  const loginUser = user.user?.id === IPostDocument.user.userId;
 
   return (
     <div className='bg-white rounded-lg p-5 mb-4'>
@@ -19,10 +21,18 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
         <div className="flex w-full justify-end items-center mb-2 flex-row gap-2">
           <ProfileImg src={IPostDocument.user.profileImage ? IPostDocument.user.profileImage : '/user.jpg'} />
           <div className="w-11/12">
-            <h3 className='font-semibold'>{IPostDocument.user.firstName + " " + IPostDocument.user.lastName}</h3>
+            <div className="flex gap-2 p-1">
+              <h3 className='font-semibold'>{IPostDocument.user.firstName + " " + IPostDocument.user.lastName}</h3>
+              {
+               user.user?.id === IPostDocument.user.userId ? <mark className='px-3 bg-yellow-200 text-xs pt-1 font-semibold rounded-md'>{loginUser ? "You" : ""}</mark> : ""
+              }
+            
+            </div>
             <p className='text-xs w-5/6 line-clamp-1'>Full Stack Web Developer | React JS | MongoDB | Express JS | Node JS | Next JS | React Native</p>
           </div>
+          <EllipsisVertical className='cursor-pointer' onClick={() => setMenuOption(!option)} />
         </div>
+        <MenuOption hide={option} id={IPostDocument._id} user={user.user?.id === IPostDocument.user.userId} setHide={setMenuOption} />
         <div className='flex flex-col items-end'>
           <p className={`left-1 text-sm ${hide ? "line-clamp-4 sm:line-clamp-3 px-2 py-1" : ""}`}>
             {hide === false && IPostDocument.description ? IPostDocument.
@@ -34,7 +44,6 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
         {
           IPostDocument.imageUrl !== undefined && IPostDocument.imageUrl.length > 3 ? <Image src={IPostDocument.imageUrl ? IPostDocument.imageUrl : ""} className='rounded-md mt-2 h-[300px] m-auto w-auto' alt='main Image' width={900} height={900} /> : ""
         }
-
 
         <div className="p-1 flex flex-row justify-between border-t px-6 mt-4">
           <div className="flex gap-2 items-center p-2">
