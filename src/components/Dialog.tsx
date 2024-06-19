@@ -8,14 +8,14 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
 import ProfileImg from "./shared/ProfileImg"
-import { CalendarDays, GalleryHorizontal, ImagePlus, PartyPopper } from "lucide-react"
+import { CalendarDays, ImagePlus, PartyPopper } from "lucide-react"
 import { ChangeEvent, useRef, useState } from "react"
 import { readFileAsUrl } from "@/lib/utils"
 import Image from "next/image"
 import { createPostAction } from "@/lib/serverAction"
 import toast from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, setOpen: any, src: string, fullName: string }) {
 
@@ -23,6 +23,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
     const [loading, setLoading] = useState<boolean>(false);
     const [selectedFile, setSelectedFile] = useState<string>("");
     const [InputText, setInputText] = useState<string>("");
+    const router = useRouter();
 
     const fileHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -33,21 +34,32 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
     }
 
     const PostActionHandler = async (formData: FormData) => {
+        if (loading) return;
+
         setLoading(true);
-        toast.loading("Uploading!")
         const inputText = formData.get('inputText') as string;
         try {
             const data = await createPostAction(inputText, selectedFile);
             if (data !== undefined) {
                 if (data.success) {
-                    toast.success(data.message);
+                    toast.success(data.message, { duration: 4000 });
                     setInputText("");
                     setSelectedFile("");
                     setOpen(false);
                     setLoading(false);
+
+                    setTimeout(() => {
+                        router.refresh();
+                    }, 500);
+
                 } else {
                     toast.error("Error Occur!");
                     setLoading(false);
+
+                    setTimeout(() => {
+                        router.refresh();
+                    }, 500);
+
                 }
             }
 

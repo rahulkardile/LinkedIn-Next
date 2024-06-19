@@ -18,7 +18,7 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
   return (
     <div className='bg-white rounded-lg p-5 mb-4'>
       <div className="">
-        <div className="flex w-full justify-end items-center mb-2 flex-row gap-2">
+        <div className="flex w-full select-none justify-end items-center mb-2 flex-row gap-2">
           <ProfileImg src={IPostDocument.user.profileImage ? IPostDocument.user.profileImage : '/user.jpg'} />
           <div className="w-11/12">
             <div className="flex gap-2 p-1">

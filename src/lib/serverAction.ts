@@ -91,7 +91,7 @@ export async function DeletePost(id: string) {
 
       const data: res = {
         message: "Post has been deleted!",
-        success: false
+        success: true
       }
 
       return JSON.parse(JSON.stringify(data))

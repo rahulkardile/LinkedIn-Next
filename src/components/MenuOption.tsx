@@ -5,25 +5,38 @@ import {
     Dialog,
     DialogClose,
     DialogContent,
-    DialogDescription,
     DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import toast from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 import { DeletePost } from "@/lib/serverAction"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function MenuOption({ hide, setHide, id, user }: { hide: boolean, setHide: any, id?: any, user: boolean }) {
 
+    const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
+
     const handleTrash = async (id: string) => {
-        const res :{ message: string, success: boolean} = await DeletePost(id);
-               
-        if (res.success) {
-            toast.success(res.message);
+        if (loading) return;
+
+        setLoading(true);
+        const res: { message: string, success: boolean } = await DeletePost(id);
+        if (res.success === true) {
+
+            toast.success(res.message, { duration: 4000 });
+            setLoading(false);
+            setHide(false);
+            setTimeout(() => {
+                router.refresh();
+            }, 500);
         } else {
-            toast.success(res.message);
+            toast.error(res.message);
+            setLoading(false);
+            setTimeout(() => {
+                router.refresh();
+            }, 1000);
+            setHide(false);
         }
     }
 
