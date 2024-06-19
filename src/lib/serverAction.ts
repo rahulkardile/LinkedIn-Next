@@ -122,3 +122,31 @@ export async function DeletePost(id: string) {
     console.log(error);
   }
 }
+
+export async function Like(id: string) {
+  try {
+
+    const data = await Post.findById(id);
+
+    if (!data) {
+      return {
+        message: "post not found!",
+        success: false
+      }
+    }
+
+    if(data.likes?.includes(id)){
+      await Post.findByIdAndUpdate(id, {
+        
+      })
+    }else{
+      await Post.findByIdAndUpdate(id, {
+        
+      })
+    }
+
+  } catch (error) {
+    console.log(error);
+
+  }
+}

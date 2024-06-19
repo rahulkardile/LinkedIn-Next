@@ -8,6 +8,8 @@ import { IPostDocument } from '../../models/post.model'
 import { useUser } from '@clerk/nextjs'
 import ReactTimeago from "react-timeago";
 import { MenuOption } from './MenuOption'
+import toast from 'react-hot-toast'
+import { Like } from '@/lib/serverAction'
 
 const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
   const user = useUser();
@@ -15,6 +17,28 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
   const [option, setMenuOption] = useState<boolean>(false);
 
   const loginUser = user.user?.id === IPostDocument.user.userId;
+  const [isLiked, setIsLiked] = useState(false);
+
+  if (IPostDocument.likes?.includes(user.user?.id !== undefined ? user.user?.id : "12")) {
+    setIsLiked(true);
+  }
+
+  const handleLike = async () => {
+    if (!user.user?.id) {
+      toast.error("Login Needed!");
+    } else {
+      setIsLiked(!isLiked);
+      try {
+        await Like(IPostDocument._id as string);
+      } catch (error) {
+        console.log(error);
+
+      }
+
+    }
+  }
+
+
 
   return (
     <div className='bg-white rounded-lg p-5 mb-4'>
@@ -37,6 +61,7 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
           </div>
           <EllipsisVertical className='cursor-pointer' onClick={() => setMenuOption(!option)} />
         </div>
+
         <MenuOption hide={option} id={IPostDocument._id} user={user.user?.id === IPostDocument.user.userId} setHide={setMenuOption} />
         <div className='flex flex-col items-end'>
           <p className={`left-1 text-sm ${hide ? "line-clamp-4 sm:line-clamp-3 px-2 py-1" : ""}`}>
@@ -51,10 +76,10 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
         }
 
         <div className="p-1 flex flex-row justify-between border-t px-6 mt-4">
-          <div className="flex gap-2 items-center p-2">
-            <ThumbsUp className='[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]' />
+          <button onClick={() => handleLike()} className="flex gap-2 items-center p-2">
+            <ThumbsUp className={`[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] ${isLiked ? "text-blue-400" : ""}`} />
             <p>Like</p>
-          </div>
+          </button>
           <div className="flex gap-2 items-center p-2">
             <MessageSquareMore />
             <p>Comment</p>
