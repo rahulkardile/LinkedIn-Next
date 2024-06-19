@@ -27,7 +27,7 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
           <p className={`left-1 text-sm ${hide ? "line-clamp-3" : ""}`}>
             {hide === false && IPostDocument.description ? IPostDocument.
             description : IPostDocument.description.substring(0, 200) + " . . .  "}
-           <span onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? " see more " : " see less "}</span>
+           <span onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? " show more " : " show less "}</span>
           </p>
         </div>
 

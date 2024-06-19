@@ -19,17 +19,19 @@ const Feed = async () => {
   const posts: IPostDocument[] = await getAllPost();
 
   return (
-    <div className="flex-1 p-3 rounded">
-      <PostInput user={userObj} />
-      <p className='border-b border-zinc-300 m-auto my-5 w-11/12' />
-      {posts.map((item, index) =>{ 
-        
-        // console.log(item);
-        
+    <div className="flex-1 rounded">
+      {
+        userObj.fullName ? <>
+          <PostInput user={userObj} />
+          <p className='border-b border-zinc-300 m-auto my-5 w-11/12' />
+        </> : ""
+      }
 
-        return(
-        <Posts IPostDocument={item} key={index} />
-      )})}
+      {posts.map((item, index) => {
+        return (
+          <Posts IPostDocument={item} key={index} />
+        )
+      })}
     </div>
   )
 }
