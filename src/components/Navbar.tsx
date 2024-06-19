@@ -21,7 +21,7 @@ const Navbar = () => {
               className="bg-white"
             />
           </Link>
-          <div className="md:block hidden">
+          <div className="">
             <Search />
           </div>
         </div>

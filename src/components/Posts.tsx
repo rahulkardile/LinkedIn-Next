@@ -24,9 +24,9 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
           </div>
         </div>
         <div className='flex flex-col items-end'>
-          <p className={`left-1 text-sm ${hide ? "line-clamp-3 px-2 py-1" : ""}`}>
+          <p className={`left-1 text-sm ${hide ? "line-clamp-4 sm:line-clamp-3 px-2 py-1" : ""}`}>
             {hide === false && IPostDocument.description ? IPostDocument.
-              description : IPostDocument.description.substring(0, 230) + " . . .  "}
+              description : IPostDocument.description.substring(0, 200) + " . . .  "}
             <span hidden={IPostDocument.description.length <= 230 ? true : false} onClick={() => setHide(!hide)} className='text-blue-400 cursor-pointer font-semibold text-xs w-20'>{hide ? " show more " : " show less "}</span>
           </p>
         </div>

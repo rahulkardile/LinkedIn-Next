@@ -4,7 +4,7 @@ import Games from './Games'
 
 const News = () => {
   return (
-    <div className='w-1/4 bg-white p-4 rounded-lg h-min' >
+    <div className='w-1/4 hidden md:block bg-white p-4 rounded-lg h-min' >
       <h1 className='text-lg font-semibold'>LinkedIn News</h1>
       <p className='text-sm text-gray-500 mt-1 font-semibold'>Top Stories</p>
 

@@ -56,7 +56,6 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
             console.log("Error Occured!");
             toast.error("Could not save!")
         }
-
     }
 
     return (

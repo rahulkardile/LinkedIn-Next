@@ -22,7 +22,7 @@ const Sidebar = ({ user }: { user: user }) => {
         <div className="border-b border-gray-300 duration-300">
           <div className="mt-10 text-center">
             <div className="w-[40%] m-auto ">
-              <h1 className='hover:font-bold font-semibold cursor-pointer'>{user ? user.fullName : 'user_name'}</h1>
+              <h1 className='hover:font-bold font-semibold text-xs md:text-sm sm:text-xs lg:text-base cursor-pointer'>{user ? user.fullName : 'user_name'}</h1>
             </ div>
           </div>
           <div className="w-10/12 mt-1 mb-2 text-xs text-center pt-1 pb-3 break-words m-auto ">

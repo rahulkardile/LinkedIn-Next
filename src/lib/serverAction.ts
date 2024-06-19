@@ -68,7 +68,6 @@ export async function createPostAction(
 
 export async function getAllPost() {
   try {
-
     await connectDB();
 
     const posts = await Post.find().sort({ createdAt: -1 });

@@ -24,7 +24,7 @@ export default function RootLayout({
           <Navbar />
           <div className="flex-1 w-full">
             <Toaster />
-            <main className="max-w-7xl mx-auto">{children}</main>
+            <main className="w-screen md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto">{children}</main>
           </div>
         </body>
       </html>

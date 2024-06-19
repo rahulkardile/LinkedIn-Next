@@ -18,17 +18,17 @@ const PostInput = ({ user }: { user: user }) => {
         <InputDialog open={open} setOpen={setOpen} fullName={user.fullName !== null && user.fullName !== undefined ? user.fullName : 'User '} src={user.img ? user.img : ""} />
       </div>
       <div className="flex flex-row px-14 pt-4 justify-between">
-        <div onClick={() => setOpen(true)} className="flex duration-300 hover:bg-zinc-300 p-2 rounded-lg  cursor-pointer gap-2">
+        <div onClick={() => setOpen(true)} className="flex portrait:flex-col items-center duration-300 hover:bg-zinc-300 p-2 rounded-lg  cursor-pointer sm:gap-2">
           <Images className='text-blue-400' />
-          <span>Media</span>
+          <span className='portrait:text-xs'>Media</span>
         </div>
-        <div onClick={() => setOpen(true)} className="flex duration-300 hover:bg-zinc-300 p-2 rounded-lg  cursor-pointer gap-2">
+        <div onClick={() => setOpen(true)} className="flex portrait:flex-col items-center duration-300 hover:bg-zinc-300 p-2 rounded-lg  cursor-pointer sm:gap-2">
           <NotepadText className='text-orange-300' />
-          <span>Event</span>
+          <span className='portrait:text-xs'>Event</span>
         </div>
-        <div onClick={() => setOpen(true)} className="flex duration-300 hover:bg-zinc-300 p-2 rounded-lg cursor-pointer gap-2">
+        <div onClick={() => setOpen(true)} className="flex portrait:flex-col items-center duration-300 hover:bg-zinc-300 p-2 rounded-lg cursor-pointer sm:gap-2">
           <Newspaper className='text-orange-600' />
-          <span>Write article</span>
+          <span className='portrait:text-xs'>Write article</span>
         </div>
       </div>
     </div>
