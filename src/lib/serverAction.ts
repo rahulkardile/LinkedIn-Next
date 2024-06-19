@@ -80,17 +80,30 @@ export async function getAllPost() {
 
 export async function DeletePost(id: string) {
   try {
+
+    interface res {
+      message: string,
+      success: boolean
+    }
+
     const deletePost = await Post.findByIdAndDelete(id);
     if (deletePost) {
-      return {
+
+      const data: res = {
         message: "Post has been deleted!",
         success: false
       }
+
+      return JSON.parse(JSON.stringify(data))
+
     } else {
-      return {
+
+      const data: res = {
         message: "Error While Deleting",
         success: false
       }
+
+      return JSON.parse(JSON.stringify(data))
     }
 
   } catch (error) {

@@ -18,13 +18,12 @@ import { DeletePost } from "@/lib/serverAction"
 export function MenuOption({ hide, setHide, id, user }: { hide: boolean, setHide: any, id?: any, user: boolean }) {
 
     const handleTrash = async (id: string) => {
-
-        const { success, message } = await DeletePost(id);
-
-        if (success) {
-            toast.success(message);
+        const res :{ message: string, success: boolean} = await DeletePost(id);
+               
+        if (res.success) {
+            toast.success(res.message);
         } else {
-            toast.success(message);
+            toast.success(res.message);
         }
     }
 
