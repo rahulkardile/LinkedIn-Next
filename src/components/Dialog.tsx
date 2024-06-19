@@ -33,13 +33,10 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
         }
     }
 
-    const PostActionHandler = async (formData: FormData) => {
-        if (loading) return;
-
+    const PostActionHandler = async () => {
         setLoading(true);
-        const inputText = formData.get('inputText') as string;
         try {
-            const data = await createPostAction(inputText, selectedFile);
+            const data = await createPostAction(InputText, selectedFile);
             if (data !== undefined) {
                 if (data.success) {
                     toast.success(data.message, { duration: 4000 });
@@ -85,7 +82,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         {"Start creating something you're excited about. Click on Create Post when you're done."}
                     </DialogDescription>
                 </DialogHeader>
-                <form action={PostActionHandler}>
+                <form onSubmit={() => PostActionHandler()}>
                     <div className="flex flex-col justify-center items-center m-auto gap-4 py-4 w-full">
                         <textarea name="inputText" value={InputText} onChange={(e) => setInputText(e.target.value)} placeholder="What do you want to talk about?" rows={5} cols={5} className="w-[96%] outline-none " />
 
@@ -120,7 +117,7 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button disabled={loading} type="submit">Create Post</Button>
+                        <Button onClick={() => PostActionHandler()} disabled={loading} type="submit">Create Post</Button>
                         <DialogClose disabled={loading} onClick={() => setOpen(false)} asChild>
                             <Button type="button" variant="secondary">
                                 Close
