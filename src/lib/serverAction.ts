@@ -135,14 +135,24 @@ export async function Like(id: string) {
       }
     }
 
-    if(data.likes?.includes(id)){
-      await Post.findByIdAndUpdate(id, {
-        
-      })
-    }else{
-      await Post.findByIdAndUpdate(id, {
-        
-      })
+    if (!data.likes?.includes(id)) {
+      await data.updateOne({ $push: { likes: id } });
+      const res = JSON.parse(JSON.stringify({
+        message: "Post Liked",
+        success: true
+      }))
+
+      return res;
+
+    } else {
+   
+      await data.updateOne({ $pull: { likes: id } })
+      const res = JSON.parse(JSON.stringify({
+        message: "Post Unliked",
+        success: true
+      }))
+
+      return res;
     }
 
   } catch (error) {

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfileImg from './shared/ProfileImg'
 import { EllipsisVertical, Forward, MessageSquareMore, Save, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
@@ -10,16 +10,23 @@ import ReactTimeago from "react-timeago";
 import { MenuOption } from './MenuOption'
 import toast from 'react-hot-toast'
 import { Like } from '@/lib/serverAction'
+import { currentUser } from '@clerk/nextjs/server'
 
 const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
   const user = useUser();
-  const [hide, setHide] = useState<boolean>(true)
+  const [hide, setHide] = useState<boolean>(true);
   const [option, setMenuOption] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
+
+  const userIds = user.user?.id as string;
+
+    setUserId(userIds);
+    console.log(userId);
 
   const loginUser = user.user?.id === IPostDocument.user.userId;
   const [isLiked, setIsLiked] = useState(false);
 
-  if (IPostDocument.likes?.includes(user.user?.id !== undefined ? user.user?.id : "12")) {
+  if (IPostDocument.likes?.includes(userId)) {
     setIsLiked(true);
   }
 
@@ -29,10 +36,14 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
     } else {
       setIsLiked(!isLiked);
       try {
-        await Like(IPostDocument._id as string);
+        const like: { success: boolean, message: string } = await Like(IPostDocument._id as string);
+        if (like.success === true) {
+          toast.success(like.message)
+        } else {
+          toast.error("Problem!")
+        }
       } catch (error) {
         console.log(error);
-
       }
 
     }

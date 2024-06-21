@@ -52,10 +52,8 @@ export function InputDialog({ open, setOpen, src, fullName }: { open: boolean, s
                     setTimeout(() => {
                         router.refresh();
                     }, 500);
-
                 }
             }
-
         } catch (error) {
             setLoading(false);
             console.log("Error Occured!");

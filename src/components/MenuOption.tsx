@@ -6,7 +6,7 @@ import {
     DialogContent,
     DialogFooter,
 } from "@/components/ui/dialog"
-import toast, { Toaster } from "react-hot-toast"
+import toast from "react-hot-toast"
 import { DeletePost } from "@/lib/serverAction"
 import { useState } from "react"
 import { useRouter } from "next/navigation"

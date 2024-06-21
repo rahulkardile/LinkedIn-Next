@@ -28,6 +28,9 @@ const Feed = async () => {
       }
 
       {posts.map((item, index) => {
+
+       let like = item.likes?.includes(user?.id as string);
+
         return (
           <Posts IPostDocument={item} key={index} />
         )
