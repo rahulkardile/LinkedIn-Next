@@ -22,7 +22,7 @@ const Feed = async () => {
     <div className="flex-1 rounded">
       {
         userObj.fullName ? <>
-          <PostInput user={userObj} />
+          <PostInput user={userObj}  />
           <p className='border-b border-zinc-300 m-auto my-5 w-11/12' />
         </> : ""
       }
@@ -32,7 +32,7 @@ const Feed = async () => {
        let like = item.likes?.includes(user?.id as string);
 
         return (
-          <Posts IPostDocument={item} key={index} />
+          <Posts IPostDocument={item} like={like !== undefined ? like : false} key={index} />
         )
       })}
     </div>

@@ -1,34 +1,24 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useUser } from '@clerk/nextjs'
 import ProfileImg from './shared/ProfileImg'
 import { EllipsisVertical, Forward, MessageSquareMore, Save, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
 import { IPostDocument } from '../../models/post.model'
-import { useUser } from '@clerk/nextjs'
 import ReactTimeago from "react-timeago";
 import { MenuOption } from './MenuOption'
 import toast from 'react-hot-toast'
 import { Like } from '@/lib/serverAction'
-import { currentUser } from '@clerk/nextjs/server'
 
-const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
+const Posts = ({ IPostDocument, like }: { IPostDocument: IPostDocument, like: boolean }) => {
   const user = useUser();
+
   const [hide, setHide] = useState<boolean>(true);
   const [option, setMenuOption] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("");
-
-  const userIds = user.user?.id as string;
-
-    setUserId(userIds);
-    console.log(userId);
 
   const loginUser = user.user?.id === IPostDocument.user.userId;
-  const [isLiked, setIsLiked] = useState(false);
-
-  if (IPostDocument.likes?.includes(userId)) {
-    setIsLiked(true);
-  }
+  const [isLiked, setIsLiked] = useState<boolean>(like);
 
   const handleLike = async () => {
     if (!user.user?.id) {
@@ -36,20 +26,21 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
     } else {
       setIsLiked(!isLiked);
       try {
-        const like: { success: boolean, message: string } = await Like(IPostDocument._id as string);
+        const like: { success: boolean, message: string, like: boolean } = await Like(IPostDocument._id as string);
         if (like.success === true) {
-          toast.success(like.message)
+          if (like.like == true) {
+            setIsLiked(true)
+          } else {
+            setIsLiked(false)
+          }
         } else {
           toast.error("Problem!")
         }
       } catch (error) {
         console.log(error);
       }
-
     }
   }
-
-
 
   return (
     <div className='bg-white rounded-lg p-5 mb-4'>
@@ -87,9 +78,10 @@ const Posts = ({ IPostDocument }: { IPostDocument: IPostDocument }) => {
         }
 
         <div className="p-1 flex flex-row justify-between border-t px-6 mt-4">
-          <button onClick={() => handleLike()} className="flex gap-2 items-center p-2">
-            <ThumbsUp className={`[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] ${isLiked ? "text-blue-400" : ""}`} />
+          <button onClick={() => handleLike()} className={`flex gap-2 items-center p-2 ${isLiked ? "text-blue-500" : ""}`}>
+            <ThumbsUp className={`[text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]`} />
             <p>Like</p>
+
           </button>
           <div className="flex gap-2 items-center p-2">
             <MessageSquareMore />

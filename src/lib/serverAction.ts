@@ -127,29 +127,33 @@ export async function Like(id: string) {
   try {
 
     const data = await Post.findById(id);
+    const user = await currentUser();
 
-    if (!data) {
+    if (!data) {  
       return {
         message: "post not found!",
         success: false
       }
     }
 
-    if (!data.likes?.includes(id)) {
-      await data.updateOne({ $push: { likes: id } });
+    if (!data.likes?.includes(user?.id !== undefined ? user.id : "")) {
+      await data.updateOne({ $push: { likes: user?.id } });
       const res = JSON.parse(JSON.stringify({
         message: "Post Liked",
-        success: true
+        success: true,
+        like: true
       }))
 
       return res;
-
+    
     } else {
    
-      await data.updateOne({ $pull: { likes: id } })
+      await data.updateOne({ $pull: { likes: user?.id } })
+
       const res = JSON.parse(JSON.stringify({
         message: "Post Unliked",
-        success: true
+        success: true,
+        like: false
       }))
 
       return res;
